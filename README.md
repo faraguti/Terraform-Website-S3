@@ -7,7 +7,7 @@ This Terraform code creates an AWS S3 bucket and configures it for static websit
      <br></br>
 
    > [!NOTE]  
-   > **The `var.bucketname` variable is used to provide a custom name for the S3 bucket. By using a variable, you can easily change the bucket name when applying the Terraform configuration. This allows you to create multiple S3 buckets with different names without modifying the underlying code. Before running Terraform, make sure to define the `bucketname` variable in your Terraform configuration file (e.g., `variables.tf`) or pass it as an argument when executing Terraform commands (e.g., `terraform apply -var="bucketname=my-custom-bucket"`).**
+   > ***The `var.bucketname` variable is used to provide a custom name for the S3 bucket. By using a variable, you can easily change the bucket name when applying the Terraform configuration. This allows you to create multiple S3 buckets with different names without modifying the underlying code. Before running Terraform, make sure to define the `bucketname` variable in your Terraform configuration file (e.g., `variables.tf`) or pass it as an argument when executing Terraform commands (e.g., `terraform apply -var="bucketname=my-custom-bucket"`).***
 
 2. **Ownership Controls**: It sets ownership controls on the bucket, specifying that the preferred owner of objects is the bucket owner.
    - Code Line: `resource "aws_s3_bucket_ownership_controls" "owners" { bucket = aws_s3_bucket.mybucket.id rule { object_ownership = "BucketOwnerPreferred" } }`
@@ -47,7 +47,7 @@ This Terraform code creates an AWS S3 bucket and configures it for static websit
       <br></br>
 
    > [!NOTE]  
-   > **The `depends_on` attribute is used to specify explicit dependencies between resources. It ensures that certain resources are created or updated before others. In this configuration, the `depends_on` attribute is applied to certain resources to manage the order of operations.
+   > ***The `depends_on` attribute is used to specify explicit dependencies between resources. It ensures that certain resources are created or updated before others. In this configuration, the `depends_on` attribute is applied to certain resources to manage the order of operations.***
 
    For example:
    - The `aws_s3_bucket_acl` resources for `index.html` and `error.html` objects depend on the `aws_s3_bucket_ownership_controls` resource. This ensures that the ownership controls are established before setting the ACLs for the objects, as per AWS requirements.
