@@ -38,6 +38,8 @@ resource "aws_s3_object" "index" {
   source = "index.html"
   acl = "public-read"
   content_type = "text/html"
+
+  depends_on = [ aws_s3_bucket_acl.acl_bucket ]
 }
 
 ## adding objects to the bucket 
@@ -47,6 +49,8 @@ resource "aws_s3_object" "error" {
   source = "error.html"
   acl = "public-read"
   content_type = "text/html"
+
+  depends_on = [ aws_s3_bucket_acl.acl_bucket ]
 }
 
 ## S3 bucket website configuration resource
