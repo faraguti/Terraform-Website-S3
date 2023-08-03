@@ -47,13 +47,13 @@ This Terraform code creates an AWS S3 bucket and configures it for static websit
    > [!NOTE]  
    > **The `depends_on` attribute is used to specify explicit dependencies between resources. It ensures that certain resources are created or updated before others. In this configuration, the `depends_on` attribute is applied to certain resources to manage the order of operations.
 
-For example:
-- The `aws_s3_bucket_acl` resources for `index.html` and `error.html` objects depend on the `aws_s3_bucket_ownership_controls` resource. This ensures that the ownership controls are established before setting the ACLs for the objects, as per AWS requirements.
+   For example:
+   - The `aws_s3_bucket_acl` resources for `index.html` and `error.html` objects depend on the `aws_s3_bucket_ownership_controls` resource. This ensures that the ownership controls are established before setting the ACLs for the objects, as per AWS requirements.
+   
+   - The `aws_s3_object` resources for `index.html` and `error.html` depend on the `aws_s3_bucket_acl` resources for the same objects. This guarantees that the proper ACL configurations are applied before uploading the objects to the S3 bucket.
+   
+   - The `aws_s3_bucket_website_configuration` resource depends on the `aws_s3_bucket_acl` resource. This ensures that the bucket's ACL configuration is completed before enabling static website hosting.
 
-- The `aws_s3_object` resources for `index.html` and `error.html` depend on the `aws_s3_bucket_acl` resources for the same objects. This guarantees that the proper ACL configurations are applied before uploading the objects to the S3 bucket.
-
-- The `aws_s3_bucket_website_configuration` resource depends on the `aws_s3_bucket_acl` resource. This ensures that the bucket's ACL configuration is completed before enabling static website hosting.
-
-By using `depends_on`, Terraform enforces a specific sequence of operations, helping to avoid potential resource creation or configuration conflicts.**
+   Using `depends_on`, makes Terraform enforces a specific sequence of operations, helping to avoid potential resource creation or configuration conflicts.**
 
 Please note that making the bucket public allows anyone to access its contents, so ensure you understand the security implications before deploying this configuration.
