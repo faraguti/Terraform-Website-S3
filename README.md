@@ -1,4 +1,4 @@
-## Terraform S3 Bucket Creation and Website Hosting
+## Terraform S3 Bucket Creation and Static Website Hosting
 
 This Terraform code creates an AWS S3 bucket and configures it for static website hosting.
 
