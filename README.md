@@ -5,6 +5,9 @@ This Terraform code creates an AWS S3 bucket and configures it for static websit
 1. **Bucket Creation**: It creates an S3 bucket with the specified name (var.bucketname).
    - Code Line: `resource "aws_s3_bucket" "mybucket" { bucket = var.bucketname }`
 
+> [!NOTE]  
+> **The `var.bucketname` variable is used to provide a custom name for the S3 bucket. By using a variable, you can easily change the bucket name when applying the Terraform configuration. This allows you to create multiple S3 buckets with different names without modifying the underlying code. Before running Terraform, make sure to define the `bucketname` variable in your Terraform configuration file (e.g., `variables.tf`) or pass it as an argument when executing Terraform commands (e.g., `terraform apply -var="bucketname=my-custom-bucket"`).**
+
 2. **Ownership Controls**: It sets ownership controls on the bucket, specifying that the preferred owner of objects is the bucket owner.
    - Code Line: `resource "aws_s3_bucket_ownership_controls" "owners" { bucket = aws_s3_bucket.mybucket.id rule { object_ownership = "BucketOwnerPreferred" } }`
 
