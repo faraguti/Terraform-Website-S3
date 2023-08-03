@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/faraguti/Terraform-Website-S3/assets/5418256/6db52534-33ee-4edd-99ef-db5468e7390d" height="100%" width="100%">
+</p>
+
 ## Terraform S3 Bucket Creation and Static Website Hosting
 
 This Terraform code creates an AWS S3 bucket and configures it for static website hosting.
