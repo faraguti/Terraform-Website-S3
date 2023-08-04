@@ -83,3 +83,61 @@ Please note that making the bucket public allows anyone to access its contents, 
 4. Run `terraform plan` to preview changes.
 5. Run `terraform apply` to deploy the database instances.
 6. Access the databases using the created users.
+
+
+
+
+
+
+
+
+<br></br>
+
+<strong>Bucket Creation</strong>
+
+The following steps detail how to create an S3 bucket for hosting the static website:
+
+**Step 1: Provider Configuration**
+
+The `provider.tf` file configures the AWS provider settings for the project. Update the `region` as needed.
+
+**Step 2: Bucket Creation**
+
+In the following block, an S3 bucket for the website is defined using the `aws_s3_bucket` resource. The bucket name is specified using the `bucketname` variable.
+
+---
+
+<strong>Ownership Controls</strong>
+
+The `aws_s3_bucket_ownership_controls` resource ensures that the bucket owner has control over the objects within the bucket.
+
+---
+
+<strong>Bucket Public Access</strong>
+
+The `aws_s3_bucket_public_access_block` resource is used to configure public access settings for the bucket.
+
+---
+
+<strong>Bucket ACL</strong>
+
+The `aws_s3_bucket_acl` resource sets the bucket access control list to allow public-read access.
+
+---
+
+<strong>Adding Objects</strong>
+
+Objects (HTML files in this case) are added to the bucket using the `aws_s3_object` resource. The `acl`, `content_type`, and other properties are specified.
+
+---
+
+<strong>Website Configuration</strong>
+
+The `aws_s3_bucket_website_configuration` resource configures the S3 bucket to act as a static website. Index and error documents are specified.
+
+
+
+
+
+
+
