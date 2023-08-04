@@ -16,7 +16,6 @@ This project demonstrates how to create and deploy a static website using Amazon
 - [Website Configuration](#website-configuration)
 - [Usage](#usage)
 
-<br></br>
 ## Bucket Creation
 
 The following steps detail how to create an S3 bucket for hosting the static website:
