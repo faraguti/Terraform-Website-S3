@@ -16,47 +16,7 @@ This project demonstrates how to create and deploy a static website using Amazon
 - [Website Configuration](#website-configuration)
 - [Usage](#usage)
 
-
-
-
-
-6. **S3 Bucket Website Configuration**: The bucket is configured for static website hosting, with index.html as the default index document and error.html as the error document.
-   - Code Line: `resource "aws_s3_bucket_website_configuration" "website" { bucket = aws_s3_bucket.mybucket.id index_document { suffix = "index.html" } error_document { key = "error.html" } depends_on = [aws_s3_bucket_acl.acl_bucket] }`
-      <br></br>
-
-   > [!NOTE]  
-   > ***The `depends_on` attribute is used to specify explicit dependencies between resources. It ensures that certain resources are created or updated before others. In this configuration, the `depends_on` attribute is applied to certain resources to manage the order of operations.***
-
-   For example:
-   - The `aws_s3_bucket_acl` resources for `index.html` and `error.html` objects depend on the `aws_s3_bucket_ownership_controls` resource. This ensures that the ownership controls are established before setting the ACLs for the objects, as per AWS requirements.
-   
-   - The `aws_s3_object` resources for `index.html` and `error.html` depend on the `aws_s3_bucket_acl` resources for the same objects. This guarantees that the proper ACL configurations are applied before uploading the objects to the S3 bucket.
-   
-   - The `aws_s3_bucket_website_configuration` resource depends on the `aws_s3_bucket_acl` resource. This ensures that the bucket's ACL configuration is completed before enabling static website hosting.
-
-   Using `depends_on`, makes Terraform enforces a specific sequence of operations, helping to avoid potential resource creation or configuration conflicts.**
-
-Please note that making the bucket public allows anyone to access its contents, so ensure you understand the security implications before deploying this configuration.
-
 <br></br>
-## Usage
-
-1. Clone the repository and navigate into it.
-2. Set up Google Cloud credentials and configure the project in `provider.tf`.
-3. Run `terraform init` to initialize the project.
-4. Run `terraform plan` to preview changes.
-5. Run `terraform apply` to deploy the database instances.
-6. Access the databases using the created users.
-
-
-
-
-
-
-
-
-<br></br>
-
 ## Bucket Creation
 
 The following steps detail how to create an S3 bucket for hosting the static website:
@@ -169,6 +129,21 @@ resource "aws_s3_object" "error" {
 ## Website Configuration
 
 The `aws_s3_bucket_website_configuration` resource configures the S3 bucket to act as a static website, with index.html as the default index document and error.html as the error document.
+```
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.mybucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+  
+  depends_on = [ aws_s3_bucket_acl.acl_bucket ]
+}
+```
 
 > [!NOTE]  
 > ***The `depends_on` attribute is used to specify explicit dependencies between resources. It ensures that certain resources are created or updated before others. In this configuration, the `depends_on` attribute is applied to certain resources to manage the order of operations.***
@@ -182,6 +157,14 @@ For example:
 
 Using `depends_on`, makes Terraform enforces a specific sequence of operations, helping to avoid potential resource creation or configuration conflicts.**
 
+<br></br>
+## Usage
+
+1. Clone the repository and navigate into it.
+2. Set up AWS credentials.
+3. Run `terraform init` to initialize the project.
+4. Run `terraform plan` to preview changes.
+5. Run `terraform apply` to create the S3 Bucket.
  
 
 
