@@ -156,7 +156,7 @@ For example:
 
 Using `depends_on`, makes Terraform enforces a specific sequence of operations, helping to avoid potential resource creation or configuration conflicts.**
 
-<br></br>
+---
 ## Usage
 
 1. Clone the repository and navigate into it.
