@@ -2,9 +2,19 @@
   <img src="https://github.com/faraguti/Terraform-Website-S3/assets/5418256/6db52534-33ee-4edd-99ef-db5468e7390d" height="100%" width="100%">
 </p>
 
-## Terraform S3 Bucket Creation and Static Website Hosting
+# Terraform S3 Bucket Creation and Static Website Hosting
 
-This Terraform code creates an AWS S3 bucket and configures it for static website hosting.
+This project demonstrates how to create and deploy a static website using Amazon S3 on AWS. The Terraform configuration in this repository automates the setup of the required resources for hosting a static website.
+
+## Table of Contents
+
+- [Bucket Creation](#bucket-creation)
+- [Ownership Controls](#ownership-controls)
+- [Bucket Public Access](#bucket-public-access)
+- [Bucket ACL](#bucket-acl)
+- [Adding Objects](#adding-objects)
+- [Website Configuration](#website-configuration)
+- [Usage](#usage)
 
 1. **Bucket Creation**: It creates an S3 bucket with the specified name (var.bucketname).
    - Code Line: `resource "aws_s3_bucket" "mybucket" { bucket = var.bucketname }`
