@@ -63,3 +63,13 @@ This Terraform code creates an AWS S3 bucket and configures it for static websit
    Using `depends_on`, makes Terraform enforces a specific sequence of operations, helping to avoid potential resource creation or configuration conflicts.**
 
 Please note that making the bucket public allows anyone to access its contents, so ensure you understand the security implications before deploying this configuration.
+
+<br></br>
+## Usage
+
+1. Clone the repository and navigate into it.
+2. Set up Google Cloud credentials and configure the project in `provider.tf`.
+3. Run `terraform init` to initialize the project.
+4. Run `terraform plan` to preview changes.
+5. Run `terraform apply` to deploy the database instances.
+6. Access the databases using the created users.
