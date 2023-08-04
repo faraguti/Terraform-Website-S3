@@ -100,10 +100,30 @@ The following steps detail how to create an S3 bucket for hosting the static web
 ### Step 1: Provider Configuration
 
 The `provider.tf` file configures the AWS provider settings for the project. Update the `region` as needed.
+```
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.10.0"
+    }
+  }
+}
+
+provider "aws" {
+  # Configuration options
+  region = "us-west-2"
+}
+```
 
 ### Step 2: Bucket Creation
 
-In the following block, an S3 bucket for the website is defined using the `aws_s3_bucket` resource. The bucket name is specified using the `bucketname` variable.
+In the `main.tf` file, an S3 bucket for the website is defined using the `aws_s3_bucket` resource. The bucket name is specified using the `bucketname` variable.
+```
+resource "aws_s3_bucket" "mybucket" {
+  bucket = var.bucketname
+}
+```
 
 ---
 
