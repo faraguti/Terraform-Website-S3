@@ -23,7 +23,7 @@ The following steps detail how to create an S3 bucket for hosting the static web
 ### Step 1: Provider Configuration
 
 The `provider.tf` file configures the AWS provider settings for the project. Update the `region` as needed.
-```
+```hcl
 terraform {
   required_providers {
     aws = {
@@ -42,7 +42,7 @@ provider "aws" {
 ### Step 2: Bucket Creation
 
 In the `main.tf` file, an S3 bucket for the website is defined using the `aws_s3_bucket` resource. The bucket name is specified using the `bucketname` variable.
-```
+```hcl
 resource "aws_s3_bucket" "mybucket" {
   bucket = var.bucketname
 }
@@ -56,7 +56,7 @@ resource "aws_s3_bucket" "mybucket" {
 ## Ownership Controls
 
 The `aws_s3_bucket_ownership_controls` resource ensures that the bucket owner has control over the objects within the bucket.
-```
+```hcl
 resource "aws_s3_bucket_ownership_controls" "owners" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -71,7 +71,7 @@ resource "aws_s3_bucket_ownership_controls" "owners" {
 ## Bucket Public Access
 
 The `aws_s3_bucket_public_access_block` resource is used to configure public access settings for the bucket.
-```
+```hcl
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -87,7 +87,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 ## Bucket ACL
 
 The `aws_s3_bucket_acl` resource sets the bucket access control list to allow public-read access.
-```
+```hcl
 resource "aws_s3_bucket_acl" "acl_bucket" {
   depends_on = [aws_s3_bucket_ownership_controls.owners]
 
@@ -101,7 +101,7 @@ resource "aws_s3_bucket_acl" "acl_bucket" {
 ## Adding Objects
 
 Objects (HTML files in this case) are added to the bucket using the `aws_s3_object` resource. The `acl`, `content_type`, and other properties are specified. The files are marked as publicly readable.
-```
+```hcl
 resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.mybucket.id
   key    = "index.html"
@@ -128,7 +128,7 @@ resource "aws_s3_object" "error" {
 ## Website Configuration
 
 The `aws_s3_bucket_website_configuration` resource configures the S3 bucket to act as a static website, with index.html as the default index document and error.html as the error document.
-```
+```hcl
 resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.mybucket.id
 
