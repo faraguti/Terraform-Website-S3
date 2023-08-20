@@ -1,9 +1,11 @@
-## bucket creation
+## Bucket Creation
+# Creates an AWS S3 bucket using the specified variable for the bucket name.
 resource "aws_s3_bucket" "mybucket" {
   bucket = var.bucketname
 }
 
-## ownership controls
+## Ownership Controls
+# Establishes ownership controls for the S3 bucket, specifying that the bucket owner's permissions are preferred.
 resource "aws_s3_bucket_ownership_controls" "owners" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -12,7 +14,8 @@ resource "aws_s3_bucket_ownership_controls" "owners" {
   }
 }
 
-## making the bucket public
+## Public Access Block
+# Configures settings to control public access to the S3 bucket.
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -22,8 +25,8 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
   restrict_public_buckets = false
 }
 
-
-## acl to make it public
+## Bucket ACL for Public Read Access
+# Sets an Access Control List (ACL) on the S3 bucket to allow public read access.
 resource "aws_s3_bucket_acl" "acl_bucket" {
   depends_on = [aws_s3_bucket_ownership_controls.owners]
 
@@ -31,7 +34,8 @@ resource "aws_s3_bucket_acl" "acl_bucket" {
   acl    = "public-read"
 }
 
-## adding objects to the bucket 
+## Adding Objects to the Bucket (index.html)
+# Uploads an index.html file to the S3 bucket, making it publicly accessible.
 resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.mybucket.id
   key    = "index.html"
@@ -39,10 +43,11 @@ resource "aws_s3_object" "index" {
   acl = "public-read"
   content_type = "text/html"
 
-  depends_on = [ aws_s3_bucket_acl.acl_bucket ]
+  depends_on = [aws_s3_bucket_acl.acl_bucket]
 }
 
-## adding objects to the bucket 
+## Adding Objects to the Bucket (error.html)
+# Uploads an error.html file to the S3 bucket, making it publicly accessible.
 resource "aws_s3_object" "error" {
   bucket = aws_s3_bucket.mybucket.id
   key    = "error.html"
@@ -50,10 +55,11 @@ resource "aws_s3_object" "error" {
   acl = "public-read"
   content_type = "text/html"
 
-  depends_on = [ aws_s3_bucket_acl.acl_bucket ]
+  depends_on = [aws_s3_bucket_acl.acl_bucket]
 }
 
-## S3 bucket website configuration resource
+## S3 Bucket Website Configuration
+# Configures the S3 bucket to act as a website, specifying index and error documents.
 resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -64,6 +70,6 @@ resource "aws_s3_bucket_website_configuration" "website" {
   error_document {
     key = "error.html"
   }
-  
-  depends_on = [ aws_s3_bucket_acl.acl_bucket ]
+
+  depends_on = [aws_s3_bucket_acl.acl_bucket]
 }
